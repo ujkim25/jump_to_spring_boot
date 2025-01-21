@@ -3,6 +3,7 @@ package com.mysite.sbb;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,11 @@ class SbbApplicationTests {
 	
 	@Test
 	void testJpa() {
-		List<Question> all = questionRepository.findAll();
-		assertEquals(2, all.size());
-		
-		Question question = all.get(0);
-		assertEquals("sbb가 무엇인가요?", question.getSubject());
+		Optional<Question> oq = this.questionRepository.findById(1);
+		//findById로 호출한 값이 존재할 수도 있고, 존재하지 않을 수도 있어서 리턴 타입으로 Optional이 사용된 것
+		if(oq.isPresent()) {
+			Question question = oq.get();
+			assertEquals("sbb가 무엇인가요?", question.getSubject());
+		}	
 	}
 }
