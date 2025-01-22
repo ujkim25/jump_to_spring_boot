@@ -19,10 +19,11 @@ class SbbApplicationTests {
 	
 	@Test
 	void testJpa() {
-		Optional<Question> q1 = this.questionRepository.findById(1);
-		assertTrue(q1.isPresent()); //assertTrue()는 괄호 안의 값이 true 인지를 테스트한다.false 라면 오류가 발생하고 테스트가 종료된다.
-		Question q1a = q1.get();
-		q1a.setSubject("수정된 sbb가 무엇인가요?");
-		this.questionRepository.save(q1a);
+		assertEquals(2,this.questionRepository.count());
+		Optional<Question> oq = this.questionRepository.findById(1);
+		assertTrue(oq.isPresent());
+		Question question = oq.get();
+		this.questionRepository.delete(question);
+		assertEquals(1,this.questionRepository.count());
 	}
 }
