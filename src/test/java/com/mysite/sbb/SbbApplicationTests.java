@@ -18,11 +18,9 @@ class SbbApplicationTests {
 	
 	@Test
 	void testJpa() {
-		Optional<Question> oq = this.questionRepository.findById(1);
-		//findById로 호출한 값이 존재할 수도 있고, 존재하지 않을 수도 있어서 리턴 타입으로 Optional이 사용된 것
-		if(oq.isPresent()) {
-			Question question = oq.get();
-			assertEquals("sbb가 무엇인가요?", question.getSubject());
-		}	
+		Question question = questionRepository.findBySubject("sbb가 무엇인가요?");
+		/*JPA에 리포지터리의 메서드명을 분석하여 쿼리를 만들고 실행하는 기능이 있기 때문에 가능하다.
+		 즉, 여러분은 findBy + 엔티티의 속성명(예를 들어 findBySubject)과 같은 리포지터리의 메서드를 작성하면 입력한 속성의 값으로 데이터를 조회할 수 있다!*/
+		assertEquals(1, question.getId());
 	}
 }
