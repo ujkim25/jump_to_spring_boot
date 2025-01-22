@@ -3,6 +3,7 @@ package com.mysite.sbb;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,13 +18,19 @@ class SbbApplicationTests {
 	 개발 시 @Autowired보다는 생성자를 통한 객체 주입 방식을 권장한다.*/
 	QuestionRepository questionRepository;
 	
+	@Autowired
+	AnswerRepository answerRepository;
+	
 	@Test
 	void testJpa() {
-		assertEquals(2,this.questionRepository.count());
-		Optional<Question> oq = this.questionRepository.findById(1);
+		Optional<Question> oq = this.questionRepository.findById(2);
 		assertTrue(oq.isPresent());
 		Question question = oq.get();
-		this.questionRepository.delete(question);
-		assertEquals(1,this.questionRepository.count());
+		
+		Answer answer = new Answer();
+		answer.setQuestion(question);
+		answer.setContent("네 자동으로 생성됩니다.");
+		answer.setCreateDate(LocalDateTime.now());
+		this.answerRepository.save(answer);
 	}
 }
