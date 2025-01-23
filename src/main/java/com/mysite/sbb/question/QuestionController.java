@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,13 @@ public class QuestionController {
 		/*Model 객체는 자바 클래스(Java class)와 템플릿(template) 간의 연결 고리 역할을 한다. 
 		Model 객체에 값을 담아 두면 템플릿에서 그 값을 사용할 수 있다.*/
 		return "question_list"; //question_list.html 템플릿 파일의 이름
+	}
+	
+	@GetMapping(value = "/question/detail/{id}")
+	String detail(Model model, @PathVariable("id") Integer id) { //변하는 id값을 얻을 때에는 @PathVariable 애너테이션을 사용한다.
+		Question question = this.questionService.getQuestion(id);
+		model.addAttribute("question", question);
+		return "question_detail";
 	}
 }
 //앞으로 작성할 다른 컨트롤러들도 이와 같이 리포지터리를 직접 사용하지 않고 컨트롤러 → 서비스 → 리포지터리 순서로 접근하는 과정을 거쳐 데이터를 처리할 것이다.

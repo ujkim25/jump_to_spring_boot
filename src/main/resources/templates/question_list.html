@@ -7,7 +7,11 @@
 	</thead>
 	<tbody>
 		<tr th:each="question : ${questions}"> <!--타임리프는 Model 객체에 저장한 questionList를 ${questionList}로 읽을 수 있다.-->
-			<td th:text="${question.subject}"></td>
+			<td>
+				<a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+				<!--URL은 반드시 @{와 } 문자 사이에 입력해야 한다.
+					타임리프에서는 /question/detail/과 같은 문자열과 ${question.id}와 같은 자바 객체의 값을 더할 때는 반드시 다음처럼 |로 좌우를 감싸 주어야 한다.-->
+			</td>
 			<td th:text="${question.createDate}"></td>
 		</tr>
 	</tbody>
