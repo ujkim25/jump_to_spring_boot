@@ -11,15 +11,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
 
+@RequestMapping("/question") //프리픽스(prefix)란 URL의 접두사 또는 시작 부분
 @RequiredArgsConstructor //@RequiredArgsConstructor 애너테이션의 생성자 방식으로 questionRepository 객체를 주입했다.
 @Controller
 public class QuestionController {
 	final QuestionService questionService;
 	
-	@GetMapping("/question/list")
+	@GetMapping("/list")
 	//@ResponseBody
 	String list(Model model) { 
 		/*매개변수로 Model을 지정하면 객체가 자동으로 생성된다.
@@ -31,7 +33,7 @@ public class QuestionController {
 		return "question_list"; //question_list.html 템플릿 파일의 이름
 	}
 	
-	@GetMapping(value = "/question/detail/{id}")
+	@GetMapping(value = "/detail/{id}")
 	String detail(Model model, @PathVariable("id") Integer id) { //변하는 id값을 얻을 때에는 @PathVariable 애너테이션을 사용한다.
 		Question question = this.questionService.getQuestion(id);
 		model.addAttribute("question", question);
