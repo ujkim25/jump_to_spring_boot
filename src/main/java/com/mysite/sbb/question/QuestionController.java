@@ -16,17 +16,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor //@RequiredArgsConstructor 애너테이션의 생성자 방식으로 questionRepository 객체를 주입했다.
 @Controller
 public class QuestionController {
-	final QuestionRepository questionRepositry;
+	final QuestionService questionService;
 	
 	@GetMapping("/question/list")
 	//@ResponseBody
 	String list(Model model) { 
 		/*매개변수로 Model을 지정하면 객체가 자동으로 생성된다.
 		Model 객체는 따로 생성할 필요 없이 컨트롤러의 메서드에 매개변수로 지정하기만 하면 스프링 부트가 자동으로 Model 객체를 생성한다.*/
-		List<Question> questions = this.questionRepositry.findAll();
+		List<Question> questions = this.questionService.getList();
 		model.addAttribute("questions", questions);
 		/*Model 객체는 자바 클래스(Java class)와 템플릿(template) 간의 연결 고리 역할을 한다. 
 		Model 객체에 값을 담아 두면 템플릿에서 그 값을 사용할 수 있다.*/
 		return "question_list"; //question_list.html 템플릿 파일의 이름
 	}
 }
+//앞으로 작성할 다른 컨트롤러들도 이와 같이 리포지터리를 직접 사용하지 않고 컨트롤러 → 서비스 → 리포지터리 순서로 접근하는 과정을 거쳐 데이터를 처리할 것이다.
