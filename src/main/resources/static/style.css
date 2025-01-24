@@ -1,0 +1,7 @@
+textarea{
+	width:100%;
+}
+
+input[type=submit]{ /*[type=submit]은 속성 선택자로, 특정 속성을 가진 HTML 요소에 스타일을 적용*/
+	margin-top:10px;
+}
