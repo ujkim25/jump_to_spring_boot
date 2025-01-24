@@ -1,6 +1,6 @@
 <h1 th:text="${question.subject}"></h1>
 <div th:text="${question.content}"></div>
-<h5 th:text="@{|${question.answerList.size()}개의 답변이 있습니다.|}"></h5>
+<h5 th:text="|${question.answerList.size()}개의 답변이 있습니다.|"></h5> <!--@{}로 감싸는 것은 URL일 때이다!-->
 <!--#lists.size(question.answerList). lists.size(객체)는 타임리프에서 제공하는 기능으로, 해당 객체의 길이를 반환한다.-->
 <div>
 	<ul>
