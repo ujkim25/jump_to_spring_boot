@@ -4,6 +4,7 @@ QuestionRepository로 조회한 질문 목록 데이터는 Model 클래스를 �
 
 package com.mysite.sbb.question;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,6 +41,17 @@ public class QuestionController {
 		Question question = this.questionService.getQuestion(id);
 		model.addAttribute("question", question);
 		return "question_detail";
+	}
+	
+	@GetMapping("/create")
+	String questionCreate() {
+		return "question_create";
+	}
+	
+	@PostMapping("/create")
+	String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
+		this.questionService.create(subject, content);
+		return "redirect:/question/list"; //[저장하기] 버튼을 클릭해 질문이 저장되면 질문 목록 페이지로 이동
 	}
 }
 //앞으로 작성할 다른 컨트롤러들도 이와 같이 리포지터리를 직접 사용하지 않고 컨트롤러 → 서비스 → 리포지터리 순서로 접근하는 과정을 거쳐 데이터를 처리할 것이다.
