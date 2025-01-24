@@ -1,0 +1,14 @@
+<!--layout.html은 모든 템플릿이 상속해야 하는 템플릿으로, 표준 HTML 문서 구조로 정리된 기본 틀이 된다.-->
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewpoint" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/style.css}">
+		<title>Hello, sbb!</title>
+	</head>
+	<body>
+		<th:block layout:fragment="content"></th:block> <!--상속한 템플릿에서 개별적으로 구현해야 하는 영역-->
+	</body>
+</html>
