@@ -3,11 +3,8 @@
 		<h5 class="my-3 border-bottom pb-2">질문 등록</h5>
 		<form th:action="@{/question/create}" th:object="${questionForm}" method="post">
 			<!--th:object는 <form>의 입력 항목들이 QuestionForm과 연결된다는 점을 타임리프에 알려주는 역할을 한다.-->
-			<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-				<!--#fields.hasAnyErrors()가 true라면 QuestionForm 검증이 실패한 것이다.-->
-				<div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
-				<!--QuestionForm 검증이 실패한 이유는 #fields.allErrors()로 확인할 수 있다. #fields.allErrors()에는 오류의 내용이 담겨 있다.-->
-			</div>
+			<div th:replace="~{form_errors :: formErrorsFragment}"></div> <!--th:replace 속성을 사용하면 템플릿 내에 공통 템플릿을 삽입할 수 있다.-->
+			<!--div 요소의 내용을 form_errors 템플릿으로 대체하라는 의미이다. 여기서 formErrorsFragment는 앞서 form_errors 템플릿에서 작성한 내용 일부를 가리키는 것이다.-->
 			<div class="mb-3">
 				<label for="subject" class="form-label">제목</label> <!--for은 무슨 용도?-->
 				<input th:field="*{subject}" class="form-control">
