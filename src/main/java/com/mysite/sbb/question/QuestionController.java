@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mysite.sbb.answer.AnswerForm;
+
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +43,8 @@ public class QuestionController {
 	}
 	
 	@GetMapping(value = "/detail/{id}")
-	String detail(Model model, @PathVariable("id") Integer id) { //변하는 id값을 얻을 때에는 @PathVariable 애너테이션을 사용한다.
+	String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) { //변하는 id값을 얻을 때에는 @PathVariable 애너테이션을 사용한다.
+		//AnswerForm을 사용하기 위해 question_detail 템플릿을 수정하였으므로 QuestionController의 detail 메서드도 수정해야 한다.
 		Question question = this.questionService.getQuestion(id);
 		model.addAttribute("question", question);
 		return "question_detail";
