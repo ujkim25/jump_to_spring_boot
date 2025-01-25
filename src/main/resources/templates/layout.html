@@ -9,6 +9,8 @@
 		<title>Hello, sbb!</title>
 	</head>
 	<body>
+		<nav th:replace="~{navbar :: navbarFragment}"></nav>
 		<th:block layout:fragment="content"></th:block> <!--상속한 템플릿에서 개별적으로 구현해야 하는 영역-->
+		<script th:src="@{/bootstrap.min.js}"></script> <!--부트스트랩의 기능 중에는 자바스크립트를 사용하는 것들이 있다. 그중 하나가 바로 내비게이션 바이다.-->
 	</body>
 </html>
