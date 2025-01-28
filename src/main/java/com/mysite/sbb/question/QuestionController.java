@@ -7,6 +7,7 @@ package com.mysite.sbb.question;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,11 +33,12 @@ public class QuestionController {
 	
 	@GetMapping("/list")
 	//@ResponseBody
-	String list(Model model) { 
+	String list(Model model, @RequestParam(value="page", defaultValue="0") int page) { 
+		//GET 방식에서는 값을 전달하기 위해서 ?와 & 기호를 사용한다. 스프링 부트(Spring Boot)의 페이징 기능을 구현할 때 첫 페이지 번호는 1이 아닌 0이므로 기본값으로 0을 설정해야 한다.
 		/*매개변수로 Model을 지정하면 객체가 자동으로 생성된다.
 		Model 객체는 따로 생성할 필요 없이 컨트롤러의 메서드에 매개변수로 지정하기만 하면 스프링 부트가 자동으로 Model 객체를 생성한다.*/
-		List<Question> questions = this.questionService.getList();
-		model.addAttribute("questions", questions);
+		Page<Question> paging = this.questionService.getList(page);
+		model.addAttribute("paging", paging);
 		/*Model 객체는 자바 클래스(Java class)와 템플릿(template) 간의 연결 고리 역할을 한다. 
 		Model 객체에 값을 담아 두면 템플릿에서 그 값을 사용할 수 있다.*/
 		return "question_list"; //question_list.html 템플릿 파일의 이름
