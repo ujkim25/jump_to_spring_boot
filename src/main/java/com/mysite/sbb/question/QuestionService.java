@@ -26,7 +26,7 @@ public class QuestionService {
 		return lq;*/
 		//return this.questionRepository.findAll();
 		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.desc("createDate"));
+		sorts.add(Sort.Order.desc("createDate")); //Entity(Question)에 존재하는 필드를 정렬 기준으로 사용
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); //page는 조회할 페이지의 번호이고, 10은 한 페이지에 보여 줄 게시물의 개수. 데이터 전체를 조회하지 않고 해당 페이지의 데이터만 조회
 		//게시물을 역순(최신순)으로 조회하려면 이와 같이 PageRequest.of 메서드의 세 번째 매개변수에 Sort 객체를 전달해야 한다.
 		return this.questionRepository.findAll(pageable);
